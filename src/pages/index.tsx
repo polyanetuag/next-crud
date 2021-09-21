@@ -1,6 +1,15 @@
 import Layout from "../components/Layout";
+import Table from "../components/Table";
+import Client from "../core/Client";
 
 export default function Home() {
+  const clients = [
+    new Client("Clara", 32, "1"),
+    new Client("Marcos", 19, "2"),
+    new Client("Alice", 40, "3"),
+    new Client("Cláudio", 56, "4"),
+  ];
+
   return (
     <div
       className={`
@@ -10,7 +19,7 @@ export default function Home() {
     `}
     >
       <Layout title="Cadastro de Usuário Simples">
-        <span>Conteúdo</span>
+        <Table clients={clients}></Table>
       </Layout>
     </div>
   );
