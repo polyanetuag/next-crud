@@ -1,3 +1,4 @@
+import { useState } from "react";
 import Button from "../components/Button";
 import Form from "../components/Form";
 import Layout from "../components/Layout";
@@ -20,6 +21,12 @@ export default function Home() {
     console.log(`Excluir...${client.name}`);
   }
 
+  function saveClient(client: Client) {
+    console.log(client);
+  }
+
+  const [visible, setVisible] = useState<"table" | "form">("table");
+
   return (
     <div
       className={`
@@ -29,17 +36,30 @@ export default function Home() {
     `}
     >
       <Layout title="Cadastro de Usuário Simples">
-        <div className="flex justify-end">
-          <Button color="green" className="mb-4">
-            Novo cliente
-          </Button>
-        </div>
-        {/* <Table
-          clients={clients}
-          selectedCustomer={seletedClient}
-          excludedCustomer={excludedClient}
-        /> */}
-        <Form client={clients[1]}></Form>
+        {visible === "table" ? (
+          <>
+            <div className="flex justify-end">
+              <Button
+                color="green"
+                className="mb-4"
+                onClick={() => setVisible("form")}
+              >
+                Novo cliente
+              </Button>
+            </div>
+            <Table
+              clients={clients}
+              selectedCustomer={seletedClient}
+              excludedCustomer={excludedClient}
+            />
+          </>
+        ) : (
+          <Form
+            client={clients[1]}
+            clientChanged={saveClient}
+            canceled={() => setVisible("table")}
+          />
+        )}
       </Layout>
     </div>
   );
